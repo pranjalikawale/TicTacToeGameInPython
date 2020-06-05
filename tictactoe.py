@@ -1,7 +1,7 @@
-import os 
 import random
 import time
 
+#tic tac toc game
 class TicTacToe:
     #board   
     board=[' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']    
@@ -20,7 +20,6 @@ class TicTacToe:
         print("__+__+__")   
         print(self.board[7]+" |"+self.board[8]+" |"+self.board[9])   
          
-
     # assign symbol to player
     def assign_symbol(self):
         if random.random()<0.5:
@@ -31,7 +30,7 @@ class TicTacToe:
     # display symbol to player
     def display_symbol(self):
         for current_players in self.player : 
-            print("\n"+self.player[current_players]+" : "+current_players) 
+            print(self.player[current_players]+" : "+current_players) 
 
     # toss 
     def toss(self):
@@ -39,7 +38,7 @@ class TicTacToe:
             self.current_player='HUMAN'
         else:
             self.current_player='COMPUTER'
-        print(self.current_player+" "+self.player.get(self.current_player)+" won toss and play first")
+        print("\n"+self.current_player+" "+self.player.get(self.current_player)+" won toss and play first")
 
     # switch player turn
     def switch_player(self):
@@ -64,21 +63,25 @@ class TicTacToe:
         if self.game_win==0:
             #Horizontal winning condition   
             self.check_row()
+
         if self.game_win==0:
             #Vertical Winning Condition    
             self.check_col()
+
         if self.game_win==0:
             #Diagonal Winning Condition    
             self.check_diagonal()       
 
     #Horizontal winning condition 
     def check_row(self):   
-        if(self.board[1] == self.board[2] and self.board[2] == self.board[3] and self.board[1] != ' '):    
+        if(self.board[1] == self.board[2] and self.board[2] == self.board[3] and self.board[1] != ' ' or 
+            self.board[4] == self.board[5] and self.board[5] == self.board[6] and self.board[4] != ' ' or
+            self.board[7] == self.board[8] and self.board[8] == self.board[9] and self.board[7] != ' '):    
             self.game_win = 1   
-        elif(self.board[4] == self.board[5] and self.board[5] == self.board[6] and self.board[4] != ' '):    
-            self.game_win = 1    
-        elif(self.board[7] == self.board[8] and self.board[8] == self.board[9] and self.board[7] != ' '):    
-            self.game_win = 1    
+        #elif(self.board[4] == self.board[5] and self.board[5] == self.board[6] and self.board[4] != ' '):    
+        #    self.game_win = 1    
+        #elif(self.board[7] == self.board[8] and self.board[8] == self.board[9] and self.board[7] != ' '):    
+        #    self.game_win = 1    
 
     #Vertical Winning Condition
     def check_col(self):  
@@ -109,6 +112,7 @@ class TicTacToe:
             if self.counter>=9 and self.game_win==0: 
                 self.ckeck_tie() 
 
+    #Take input from user and computer
     def get_input(self):
         choice=-1
         while True:
@@ -122,14 +126,15 @@ class TicTacToe:
                 except ValueError:
                     print("Plz enter valid number") 
             else:
-                choice=random.randint(1,10)
+                choice=random.randint(1,9)
                 if self.is_empty(choice):
                     time.sleep(3)
                     break
         self.placed_mark_in_board(choice)
 
+    #tic tac toc game start
     def tic_tac_toe(self):
-        os.system('cls')    
+        print("----------------Start TicTacToe Game----------------")   
         self.draw_board()   
         self.assign_symbol()
         self.display_symbol()
